@@ -18,8 +18,10 @@ namespace Vehicles
 			services.AddScoped<IVehicleRepository,InMemoryVehicleRepository>();
 
 			//-Voor EF demo -//
-		   services.AddScoped<IVehicleRepository, EfVehicleRepository>();
-			var connectionString = "server=localhost; port=3306; database=vehicles-db; user=root; password=Dimitri1290";
+			services.AddScoped<IVehicleRepository, EfVehicleRepository>();
+			var user = Environment.GetEnvironmentVariable("USER");
+			var psw = Environment.GetEnvironmentVariable("USER_PSW");
+			var connectionString = $"server=localhost; port=3306; database=vehicles-db; user={user}; password={psw}";
 			services.AddDbContext<VehicleContext>(x =>
 			{
 				x.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
